@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>桃花</title>
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/animate.min.css">
+	</head>
+	<script src="js/jquery.js"></script>
+	<script src="js/touchjs.min.js"></script>
+	<script src="js/public.js"></script>
+	<script src="js/preload.js"></script>
+	<script src="js/snowflakes.min.js"></script>
+	<body>
+		<div id="wrap">
+			<div class="preload">
+					<div id="percent"></div>
+					<img class="cloud1" src="img/loadingUI/cloud1.png" alt="">
+					<img class="cloud2" src="img/loadingUI/cloud2.png" alt="">
+					<img class="cloud3" src="img/loadingUI/cloud1.png" alt="">
+					<img class="animated pulse hua" src="img/loadingUI/load_p1.png" alt="">
+					<img class="load" src="img/loadingUI/loadTxt.png" alt="">
+				<!-- <img class="animated fadeOutUp txt" src="img/loadingUI/load_txt.png" alt=""> -->
+			</div>
+			<div class="guodu">
+				<canvas id = "guodu"></canvas>
+			</div>
+			<div id="main">
+				<canvas id="mCanvas"></canvas>
+			</div>
+		</div>
+		<p id="screen">请将手机置于竖屏位置</p>
+		<p id="pc"> 请使用移动端打开</p>
+
+	</body>
+	<script>
+		var canvas = document.getElementById("mCanvas");
+		var ctx = canvas.getContext("2d");
+
+
+		//1. 判断是否是移动端
+		let mobile = ["iPhone", "iPad", "iPod", "Android"];
+		let isPc = true;
+		for (let i = 0; i < mobile.length; i++) {
+			if (navigator.userAgent.includes(mobile[i])) {
+				//移动端
+				isPc = false;
+				//判断横竖屏
+				checkScreen();
+				break;
+			}
+		}
+		if (isPc) {
+			//pc
+			$("#wrap").hide();
+			$("#pc").show();
+			$("#screen").hide();
+		}
+		
+        var sf = new Snowflakes({
+          color: "pink",
+          count: 75,
+          minOpacity: 0.8,
+          maxOpacity: 1
+        });
+		
+		function checkScreen() {
+			if (window.innerHeight <= window.innerWidth) {
+				$("#wrap").hide();
+				$("#pc").hide();
+				$("#screen").show();
+				console.log("横屏")
+			} else {
+				$("#wrap").show();
+				$(".preload").show();
+				$("#pc").hide();
+				$("#screen").hide();
+			}
+		}
+		window.addEventListener('resize', checkScreen);
+	</script>
+</html>
